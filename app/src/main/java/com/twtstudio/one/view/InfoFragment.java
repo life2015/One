@@ -53,10 +53,23 @@ public class InfoFragment extends Fragment implements InfoView{
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
         recyclerview= (RecyclerView) view.findViewById(R.id.reccylerview);
-        recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        final LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        recyclerview.setLayoutManager(layoutManager);
         adapter=new RecyclerViewAdapter(getActivity());
         recyclerview.setAdapter(adapter);
         infoBeanPresenter.getData();
+//        recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                int totalcount=layoutManager.getItemCount();
+//                int lastcount=layoutManager.findLastVisibleItemPosition();
+//                if (lastcount+2>=lastcount)
+//                {
+//                    infoBeanPresenter.getData();
+//                }
+//            }
+//        });
         return view;
     }
 

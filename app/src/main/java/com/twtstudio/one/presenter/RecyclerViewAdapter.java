@@ -75,7 +75,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             final InfoViewHolder infoViewHolder = (InfoViewHolder) holder;
             //infoViewHolder.imageView.setImageResource(R.drawable.one_pic);
             infoViewHolder.infoTextView.setText(beanList.get(position).getHpEntity().getStrContent());
-            infoViewHolder.dateTextView.setText(beanList.get(position).getHpEntity().getStrMarketTime());
+            infoViewHolder.authorTextView.setText(beanList.get(position).getHpEntity().getStrAuthor());
             Glide.with(context).load(beanList.get(position).getHpEntity().getStrThumbnailUrl())
                     .asBitmap().error(R.drawable.one_pic)
                     .into(new BitmapImageViewTarget(infoViewHolder.imageView){
@@ -108,13 +108,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         CardView cardView;
         ImageView imageView;
         TextView infoTextView;
-        TextView dateTextView;
+        TextView authorTextView;
         public InfoViewHolder(View itemView) {
             super(itemView);
             cardView= (CardView) itemView.findViewById(R.id.card_view);
             imageView= (ImageView) itemView.findViewById(R.id.image_one);
             infoTextView= (TextView) itemView.findViewById(R.id.text_one);
-            dateTextView= (TextView) itemView.findViewById(R.id.date_text);
+            authorTextView= (TextView) itemView.findViewById(R.id.author);
         }
     }
     static class footerViewHolder extends RecyclerView.ViewHolder

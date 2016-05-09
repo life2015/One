@@ -48,19 +48,33 @@ public class GetBeanListImpl implements GetBeanList {
 //        Log.d("jcy",date_string);
         Calendar calendar=Calendar.getInstance();
         calendar.get(Calendar.DATE);
-        for (int i = 0; i <10 ; i++) {
+        int max=calendar.get(Calendar.DAY_OF_MONTH)+1;
+        for (int i = 0; i <max; i++) {
             String dateString=simpleDateFormat.format(calendar.getTime());
             datelist.add(dateString);
             int day=calendar.get(Calendar.DAY_OF_MONTH)-1;
             calendar.set(Calendar.DAY_OF_MONTH,day);
+
         }
+//        int day=calendar.get(Calendar.DAY_OF_MONTH);
+//        while (calendar.get(Calendar.MONTH)>4)
+//        {
+//                String dateString=simpleDateFormat.format(calendar.getTime());
+//                datelist.add(dateString);
+//                day=calendar.get(Calendar.DAY_OF_MONTH)-1;
+//                calendar.set(Calendar.DAY_OF_MONTH,day);
+//
+//        }
        return datelist;
     }
 
     @Override
     public void getPreInfo() {
-        for (String s:initdate()) {
-            volleypost(s);
+//        for (String s:initdate()) {
+//            volleypost(s);
+//        }
+        for (int i = 0; i <initdate().size() ; i++) {
+            volleypost(initdate().get(i));
         }
     }
 
@@ -74,10 +88,13 @@ public class GetBeanListImpl implements GetBeanList {
         StringRequest request=new StringRequest(Request.Method.GET, urlBuilder(Date), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 OneBean bean=gson.fromJson(response, OneBean.class);
-                Log.d("jcyget",bean.getHpEntity().getStrLastUpdateDate());
-                infoBeanPresenter.psotInfoBean(bean);
-                //System.out.println(bean);
+                if (bean.getHpEntity()!=null) {
+                    //Log.d("jcyget",bean.getHpEntity().getStrLastUpdateDate());
+                    infoBeanPresenter.psotInfoBean(bean);
+                    //System.out.println(bean);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
