@@ -1,15 +1,21 @@
 package com.twtstudio.one.view;
 
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.twtstudio.one.R;
 import com.twtstudio.one.model.OneBean;
+import com.twtstudio.one.presenter.InfoBeanPresenterImpl;
+import com.twtstudio.one.presenter.InfoBeanPresenter;
+import com.twtstudio.one.presenter.RecyclerViewAdapter;
 
 import java.util.List;
 
@@ -19,6 +25,8 @@ import java.util.List;
 public class InfoFragment extends Fragment implements InfoView{
 
     RecyclerView recyclerview;
+    RecyclerViewAdapter adapter;
+    InfoBeanPresenter infoBeanPresenter;
     public static InfoFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -31,14 +39,25 @@ public class InfoFragment extends Fragment implements InfoView{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        infoBeanPresenter =new InfoBeanPresenterImpl(this,getActivity());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.info_fragment,container,false);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT)
+        {//透明状态栏
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         recyclerview= (RecyclerView) view.findViewById(R.id.reccylerview);
-        return recyclerview;
+        recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter=new RecyclerViewAdapter(getActivity());
+        recyclerview.setAdapter(adapter);
+        infoBeanPresenter.getData();
+        return view;
     }
 
     @Override
@@ -49,5 +68,10 @@ public class InfoFragment extends Fragment implements InfoView{
     @Override
     public void updateInfoList(List<OneBean> newOneBeanList) {
 
+    }
+
+    @Override
+    public void insertInfoItem(OneBean bean) {
+        adapter.insert(bean);
     }
 }

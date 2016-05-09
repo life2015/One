@@ -1,15 +1,33 @@
 package com.twtstudio.one.presenter;
 
-import com.twtstudio.one.model.OneBean;
+import android.content.Context;
 
-import java.util.List;
+import com.twtstudio.one.model.GetBeanList;
+import com.twtstudio.one.model.GetBeanListImpl;
+import com.twtstudio.one.model.OneBean;
+import com.twtstudio.one.view.InfoView;
 
 /**
  * Created by jcy on 2016/5/9.
  */
-public class InfoBeanPresenterImpl implements InfoBeanPresneter {
-    @Override
-    public void psotInfoBeanList(List<OneBean> oneBeanList) {
+public class InfoBeanPresenterImpl implements InfoBeanPresenter {
+    InfoView infoView;
+    GetBeanList getBeanList;
 
+    public InfoBeanPresenterImpl(InfoView infoView, Context context)
+    {
+        this.infoView = infoView;
+        this.getBeanList = new GetBeanListImpl(context,this);
+    }
+
+    @Override
+    public  void psotInfoBean(OneBean bean) {
+        synchronized(this)
+        { infoView.insertInfoItem(bean);}
+    }
+
+    @Override
+    public void getData() {
+        getBeanList.getPreInfo();
     }
 }

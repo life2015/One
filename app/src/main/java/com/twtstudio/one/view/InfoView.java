@@ -19,4 +19,10 @@ public interface InfoView {
      * @param newOneBeanList
      */
     void updateInfoList(List<OneBean> newOneBeanList);
+
+    /**
+     * 适配器单个插入
+     * @param bean
+     */
+    void insertInfoItem(OneBean bean);
 }

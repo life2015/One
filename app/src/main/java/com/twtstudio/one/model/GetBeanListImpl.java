@@ -2,7 +2,6 @@ package com.twtstudio.one.model;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -12,12 +11,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.twtstudio.one.MainActivity;
+import com.twtstudio.one.presenter.InfoBeanPresenter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +26,7 @@ public class GetBeanListImpl implements GetBeanList {
     RequestQueue queue;
     Context context;
     Gson gson=new Gson();
+    InfoBeanPresenter infoBeanPresenter;
     String date_string;
     String base_url="http://211.152.49.184:7001/OneForWeb/one/getHpinfo";
     String url_hpinfo="http://211.152.49.184:7001/OneForWeb/one/getHpinfo?strDate=";
@@ -35,9 +34,9 @@ public class GetBeanListImpl implements GetBeanList {
     /**
      * 构造函数
      */
-    public GetBeanListImpl(Context context) {
+    public GetBeanListImpl(Context context,InfoBeanPresenter infoBeanPresenter) {
         queue= Volley.newRequestQueue(context);
-
+        this.infoBeanPresenter=infoBeanPresenter;
     }
 
     List<String> initdate()
@@ -49,10 +48,11 @@ public class GetBeanListImpl implements GetBeanList {
 //        Log.d("jcy",date_string);
         Calendar calendar=Calendar.getInstance();
         calendar.get(Calendar.DATE);
-        for (int i = 0; i <8 ; i++) {
-            calendar.roll(Calendar.DAY_OF_MONTH,-i);
+        for (int i = 0; i <10 ; i++) {
             String dateString=simpleDateFormat.format(calendar.getTime());
             datelist.add(dateString);
+            int day=calendar.get(Calendar.DAY_OF_MONTH)-1;
+            calendar.set(Calendar.DAY_OF_MONTH,day);
         }
        return datelist;
     }
@@ -74,9 +74,10 @@ public class GetBeanListImpl implements GetBeanList {
         StringRequest request=new StringRequest(Request.Method.GET, urlBuilder(Date), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("jcy", response);
                 OneBean bean=gson.fromJson(response, OneBean.class);
-                System.out.println(bean);
+                Log.d("jcyget",bean.getHpEntity().getStrLastUpdateDate());
+                infoBeanPresenter.psotInfoBean(bean);
+                //System.out.println(bean);
             }
         }, new Response.ErrorListener() {
             @Override
