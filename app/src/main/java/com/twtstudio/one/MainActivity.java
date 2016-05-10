@@ -32,8 +32,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar_one);
         setSupportActionBar(toolbar);
+
         FragmentManager manager=getFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         transaction.add(R.id.container, InfoFragment.newInstance());

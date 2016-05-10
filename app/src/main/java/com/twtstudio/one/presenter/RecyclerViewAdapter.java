@@ -1,8 +1,10 @@
 package com.twtstudio.one.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +17,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.twtstudio.one.ContentAct;
 import com.twtstudio.one.R;
+import com.twtstudio.one.model.BitmapSerziable;
 import com.twtstudio.one.model.OneBean;
 
 import java.util.ArrayList;
@@ -69,18 +73,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.notifyItemInserted(beanList.size());
     }
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        //BitmapSerziable bitmapSerziable=new BitmapSerziable();
         if(getItemViewType(position)==TYPE_NORMAL)
         {
             final InfoViewHolder infoViewHolder = (InfoViewHolder) holder;
             //infoViewHolder.imageView.setImageResource(R.drawable.one_pic);
             infoViewHolder.infoTextView.setText(beanList.get(position).getHpEntity().getStrContent());
             infoViewHolder.authorTextView.setText(beanList.get(position).getHpEntity().getStrAuthor());
+
             Glide.with(context).load(beanList.get(position).getHpEntity().getStrThumbnailUrl())
                     .asBitmap().error(R.drawable.one_pic)
                     .into(new BitmapImageViewTarget(infoViewHolder.imageView){
                         @Override
                         public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            //bitmapSerziable.setBitmap(resource);
                             super.onResourceReady(resource, glideAnimation);
                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
                             {
@@ -94,6 +101,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             }
                         }
                     });
+            /**
+             * cardview点击跳转事件
+             */
+            infoViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, ContentAct.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString("index",beanList.get(position).getHpEntity().getStrMarketTime());
+                    bundle.putString("bitmapurl",beanList.get(position).getHpEntity().getStrOriginalImgUrl());
+                    intent.putExtras(bundle);
+                    //intent.putExtra("stroy_bitmap",bitmapSerziable);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
