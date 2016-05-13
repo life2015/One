@@ -25,8 +25,9 @@ import java.net.URL;
 
 public class ContentAct extends AppCompatActivity {
     WebView webView;
-    String CONTENT_BASE_URL="http://211.152.49.184:7001/OneForWeb/one/getOneContentInfo?strDate=";
+    String CONTENT_BASE_URL = "http://211.152.49.184:7001/OneForWeb/one/getOneContentInfo?strDate=";
     ImageView imageview;
+
     //CoordinatorLayout coordinatorLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,25 +35,25 @@ public class ContentAct extends AppCompatActivity {
         setContentView(R.layout.activity_content);
 
         //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar_content);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_content);
         toolbar.setTitle("Story");
         setSupportActionBar(toolbar);
-        webView= (WebView) findViewById(R.id.webView_story);
-        imageview= (ImageView) findViewById(R.id.image_content_one);
-        Intent intent=getIntent();
-        Bundle bundle=intent.getExtras();
-        String s=bundle.getString("index");
-        String bitmapurl=bundle.getString("bitmapurl");
+        webView = (WebView) findViewById(R.id.webView_story);
+        imageview = (ImageView) findViewById(R.id.image_content_one);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String s = bundle.getString("index");
+        String bitmapurl = bundle.getString("bitmapurl");
         new MyAsyncTask().execute(s);
         new BitmapTask().execute(bitmapurl);
 
     }
-    class MyAsyncTask extends AsyncTask<String,Void,String>
-    {
+
+    class MyAsyncTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -62,30 +63,30 @@ public class ContentAct extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String reponse=null;
+            String reponse = null;
             try {
-                URL url=new URL(CONTENT_BASE_URL+params[0]);
-                reponse=NetUtils.readStream(url.openStream());
+                URL url = new URL(CONTENT_BASE_URL + params[0]);
+                reponse = NetUtils.readStream(url.openStream());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Gson gson=new Gson();
-            OneStoryBean storyBean=gson.fromJson(reponse, OneStoryBean.class);
-            String content=storyBean.getContentEntity().getStrContent();
+            Gson gson = new Gson();
+            OneStoryBean storyBean = gson.fromJson(reponse, OneStoryBean.class);
+            String content = storyBean.getContentEntity().getStrContent();
             return content;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("jcycont",s);
-            webView.loadData(s,"text/html;charset=utf-8", null);
+            Log.d("jcycont", s);
+            webView.loadData(s, "text/html;charset=utf-8", null);
         }
     }
-    class BitmapTask extends AsyncTask<String,Void,Bitmap>
-    {
+
+    class BitmapTask extends AsyncTask<String, Void, Bitmap> {
 
         @Override
         protected Bitmap doInBackground(String... params) {
