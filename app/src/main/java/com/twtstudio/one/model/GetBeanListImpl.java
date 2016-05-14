@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.twtstudio.one.Bean.OneBean;
 import com.twtstudio.one.presenter.InfoBeanPresenter;
 
 import java.text.SimpleDateFormat;

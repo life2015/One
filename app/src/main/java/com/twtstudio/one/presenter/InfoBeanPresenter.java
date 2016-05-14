@@ -1,6 +1,7 @@
 package com.twtstudio.one.presenter;
 
-import com.twtstudio.one.model.OneBean;
+import com.twtstudio.one.Bean.BeanListMonth;
+import com.twtstudio.one.Bean.OneBean;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface InfoBeanPresenter {
      void psotInfoBean(OneBean bean);
 
     void getData();
+
+    void postList(List<BeanListMonth.DataBean> dataBeanList);
 
 }

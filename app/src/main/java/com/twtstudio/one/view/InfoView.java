@@ -1,6 +1,7 @@
 package com.twtstudio.one.view;
 
-import com.twtstudio.one.model.OneBean;
+import com.twtstudio.one.Bean.BeanListMonth;
+import com.twtstudio.one.Bean.BeanListMonth.DataBean;
 
 import java.util.List;
 
@@ -12,17 +13,24 @@ public interface InfoView {
      * 讲list传入view
      * @param oneBeanList
      */
-    void setInfoListView(List<OneBean> oneBeanList);
+    void setInfoListView(List<BeanListMonth.DataBean> oneBeanList);
 
     /**
      * 更新infolist
      * @param newOneBeanList
      */
-    void updateInfoList(List<OneBean> newOneBeanList);
+    void updateInfoList(List<BeanListMonth.DataBean> newOneBeanList);
+
 
     /**
      * 适配器单个插入
      * @param bean
      */
-    void insertInfoItem(OneBean bean);
+    void insertInfoItem(BeanListMonth.DataBean bean);
+
+    /**
+     * 适配器批量插入
+     * @param dataBeanList 插入的list源
+     */
+    void addList(List<BeanListMonth.DataBean> dataBeanList);
 }

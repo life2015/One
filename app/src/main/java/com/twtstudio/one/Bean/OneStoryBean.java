@@ -1,4 +1,4 @@
-package com.twtstudio.one.model;
+package com.twtstudio.one.Bean;
 
 /**
  * Created by jcy on 2016/5/10.

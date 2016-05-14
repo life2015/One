@@ -1,7 +1,6 @@
 package com.twtstudio.one.view;
 
 import android.app.Fragment;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,10 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
+import com.twtstudio.one.Bean.BeanListMonth;
 import com.twtstudio.one.R;
-import com.twtstudio.one.model.OneBean;
+import com.twtstudio.one.Bean.OneBean;
 import com.twtstudio.one.presenter.InfoBeanPresenterImpl;
 import com.twtstudio.one.presenter.InfoBeanPresenter;
 import com.twtstudio.one.presenter.RecyclerViewAdapter;
@@ -68,18 +67,24 @@ public class InfoFragment extends Fragment implements InfoView{
         return view;
     }
 
+
     @Override
-    public void setInfoListView(List<OneBean> oneBeanList) {
+    public void setInfoListView(List<BeanListMonth.DataBean> oneBeanList) {
 
     }
 
     @Override
-    public void updateInfoList(List<OneBean> newOneBeanList) {
+    public void updateInfoList(List<BeanListMonth.DataBean> newOneBeanList) {
 
     }
 
     @Override
-    public void insertInfoItem(OneBean bean) {
+    public void insertInfoItem(BeanListMonth.DataBean bean) {
         adapter.insert(bean);
+    }
+
+    @Override
+    public void addList(List<BeanListMonth.DataBean> dataBeanList) {
+        adapter.addList(dataBeanList);
     }
 }

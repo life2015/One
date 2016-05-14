@@ -6,9 +6,7 @@ import android.content.Context;
 /**
  * Created by jcy on 2016/5/9.
  */
-public class OneApp extends Application {
-    Context context=getApplicationContext();
-    public  Context getContext() {
-        return context;
-    }
+public  class OneApp extends Application {
+
+
 }

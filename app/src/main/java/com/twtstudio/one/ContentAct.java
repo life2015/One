@@ -3,9 +3,6 @@ package com.twtstudio.one;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,8 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.twtstudio.one.model.BitmapSerziable;
-import com.twtstudio.one.model.OneStoryBean;
+import com.twtstudio.one.Bean.OneStoryBean;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
