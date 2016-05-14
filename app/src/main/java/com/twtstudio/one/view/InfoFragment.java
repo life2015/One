@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.twtstudio.one.Bean.BeanListMonth;
 import com.twtstudio.one.R;
-import com.twtstudio.one.Bean.OneBean;
 import com.twtstudio.one.presenter.InfoBeanPresenterImpl;
 import com.twtstudio.one.presenter.InfoBeanPresenter;
 import com.twtstudio.one.presenter.RecyclerViewAdapter;

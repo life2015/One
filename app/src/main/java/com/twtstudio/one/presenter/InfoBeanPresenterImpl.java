@@ -4,9 +4,6 @@ import android.content.Context;
 
 import com.twtstudio.one.Bean.BeanListMonth;
 import com.twtstudio.one.model.ApiClient;
-import com.twtstudio.one.model.GetBeanList;
-import com.twtstudio.one.model.GetBeanListImpl;
-import com.twtstudio.one.Bean.OneBean;
 import com.twtstudio.one.view.InfoView;
 
 import java.util.List;
@@ -23,13 +20,9 @@ public class InfoBeanPresenterImpl implements InfoBeanPresenter {
     {
         this.infoView = infoView;
         //this.getBeanList = new GetBeanListImpl(context,this);
-        this.apiClient=new ApiClient(this);
+       this.apiClient=new ApiClient(this);
     }
 
-    @Override
-    public  void psotInfoBean(OneBean bean) {
-
-    }
 
     @Override
     public void getData() {

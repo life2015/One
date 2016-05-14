@@ -1,11 +1,15 @@
 package com.twtstudio.one.model;
 
+import android.util.Log;
+
 import com.twtstudio.one.Bean.BeanListMonth;
 import com.twtstudio.one.presenter.InfoBeanPresenter;
 
 import java.io.IOException;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -26,12 +30,19 @@ public class ApiClient {
 
     public void get()
     {
-        Call<BeanListMonth> call=One_Api.getListBean("2016-5");
-        try {
-            BeanListMonth beanListMonth=call.execute().body();
-            infoBeanPresenter.postList(beanListMonth.getData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Call<BeanListMonth> call=One_Api.getListBean("2016-04");
+        call.enqueue(new Callback<BeanListMonth>() {
+            @Override
+            public void onResponse(Call<BeanListMonth> call, Response<BeanListMonth> response) {
+                infoBeanPresenter.postList(response.body().getData());
+                System.out.println(response.body().getData());
+                Log.d("jcy","retrofit----------------->ok");
+            }
+
+            @Override
+            public void onFailure(Call<BeanListMonth> call, Throwable t) {
+                Log.d("jcyerror","retrofit失败");
+            }
+        });
     }
 }

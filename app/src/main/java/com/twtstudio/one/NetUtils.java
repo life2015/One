@@ -59,9 +59,9 @@ public class NetUtils {
         Log.d("jcy","加载bitmap");
         return bitmap;
     }
-    public static boolean isonline(Context context)
+    public static boolean isonline()
     {
-        ConnectivityManager connectivityManager= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager= (ConnectivityManager)OneApp.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
         return (networkInfo!=null&&networkInfo.isConnected());
     }
