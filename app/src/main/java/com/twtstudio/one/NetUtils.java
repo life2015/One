@@ -22,6 +22,7 @@ import java.net.URLConnection;
  * Created by 冀辰阳 on 2016/4/19.
  */
 public class NetUtils {
+
     //读取网络上的数据转化为字符串
     public static String readStream(InputStream is) {
         InputStreamReader isr;
