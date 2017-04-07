@@ -14,4 +14,6 @@ public interface InfoBeanPresenter {
 
     void postList(List<BeanListMonth.DataBean> dataBeanList);
 
+    void loadMore();
+
 }
