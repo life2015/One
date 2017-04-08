@@ -2,6 +2,7 @@ package com.twtstudio.one.view
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -28,6 +29,8 @@ import org.jetbrains.anko.find
 
 /**
  * Created by retrox on 08/04/2017.
+ *
+ * 这里并没有严格遵循MVP，因为逻辑不复杂，写在activity里面会看起来更加直观一些
  */
 class VActivity : AppCompatActivity() {
 
@@ -53,13 +56,23 @@ class VActivity : AppCompatActivity() {
         val list2 = ArrayList<BeanListMonth.DataBean>()
         val list3 = ArrayList<BeanListMonth.DataBean>()
 
+        val singleHelper = SingleLayoutHelper()
+        singleHelper.setMargin(0,16,0,0)
+        //顶部的小标题条目
+        delegateAdapter.addAdapter(SimpleItemAdapter(this,singleHelper))
+
+        val gridHelper = GridLayoutHelper(2)
+        gridHelper.bgColor = Color.WHITE
+
+        // 就是一个高阶函数
         api.getasList {
+            // 把返回的数据分成三部分，用不同的布局展示
             it.forEachIndexed { index, dataBean ->
                 when (index) {
                     in 0..10 -> {
                         list1.add(dataBean)
                         if (index == 10)
-                            delegateAdapter.addAdapter(SubAdapter(this, GridLayoutHelper(2), list1))
+                            delegateAdapter.addAdapter(SubAdapter(this, gridHelper, list1))
                     }
                     in 11..20 -> {
                         list2.add(dataBean)
@@ -79,7 +92,7 @@ class VActivity : AppCompatActivity() {
     }
 
 
-    class SubAdapter(val context: Context, val layoutHelper: LayoutHelper, val data: List<BeanListMonth.DataBean>) : DelegateAdapter.Adapter<InfoViewHolder>() {
+    class SubAdapter(val context: Context, val layoutHelper: LayoutHelper, val data: List<BeanListMonth.DataBean>) : DelegateAdapter.Adapter<SubAdapter.InfoViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): InfoViewHolder {
 
@@ -105,16 +118,42 @@ class VActivity : AppCompatActivity() {
             return layoutHelper
         }
 
+        class InfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+            var cardView: CardView = itemView.findViewById(R.id.card_view) as CardView
+            var imageView: ImageView = itemView.findViewById(R.id.image_one) as ImageView
+            var infoTextView: TextView = itemView.findViewById(R.id.text_one) as TextView
+            var authorTextView: TextView = itemView.findViewById(R.id.author) as TextView
+
+        }
+
     }
 
-    class InfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SimpleItemAdapter(val context: Context, val layoutHelper: LayoutHelper) : DelegateAdapter.Adapter<SimpleItemAdapter.SimpleItemHolder>(){
 
-        var cardView: CardView = itemView.findViewById(R.id.card_view) as CardView
-        var imageView: ImageView = itemView.findViewById(R.id.image_one) as ImageView
-        var infoTextView: TextView = itemView.findViewById(R.id.text_one) as TextView
-        var authorTextView: TextView = itemView.findViewById(R.id.author) as TextView
 
+        override fun onCreateLayoutHelper(): LayoutHelper {
+            return layoutHelper
+        }
+
+        override fun onBindViewHolder(holder: SimpleItemHolder?, position: Int) {
+//            TODO("not implemented")
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SimpleItemHolder {
+            val view = LayoutInflater.from(context).inflate(R.layout.item_simple_title,parent,false)
+            return SimpleItemHolder(view)
+        }
+
+        override fun getItemCount(): Int {
+            return 1
+        }
+
+        class SimpleItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val textView = itemView.findViewById(R.id.textView) as TextView
+        }
     }
+
 
 
 }
