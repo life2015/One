@@ -16,6 +16,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Action1
+import rx.functions.Action2
 import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
 
@@ -47,8 +49,22 @@ class ApiClient(var infoBeanPresenter: InfoBeanPresenter) {
         subscriptionMap.add(subscription)
     }
 
-    fun unbind(){
-        if (!subscriptionMap.isUnsubscribed){
+    fun getasList(action: (ArrayList<BeanListMonth.DataBean>) -> Unit) {
+
+        val subsciprtion = Observable.merge(One_Api.getListBean("2017-04"), One_Api.getListBean("2017-03"), One_Api.getListBean("2017-02"))
+                .subscribeOn(Schedulers.io())
+                .map { it.data }
+                .flatMap { Observable.from(it) }
+                .collect({ ArrayList<BeanListMonth.DataBean>() },
+                        { t1, t2 -> t1.add(t2) })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(action, Throwable::printStackTrace)
+
+        subscriptionMap.add(subsciprtion)
+    }
+
+    fun unbind() {
+        if (!subscriptionMap.isUnsubscribed) {
             subscriptionMap.unsubscribe()
         }
     }

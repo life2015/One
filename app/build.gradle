@@ -37,6 +37,10 @@ dependencies {
     compile "io.reactivex:rxjava:1.2.5"
     compile 'io.reactivex:rxandroid:1.2.1'
 
+    compile ('com.alibaba.android:vlayout:1.0.3@aar') {
+        transitive = true
+    }
+
     compile 'com.github.vipulasri.layouttoimage:library:1.0.0'
 
     compile 'org.jetbrains.anko:anko-sdk21:0.9.1' // sdk19, sdk21, sdk23 are also available
