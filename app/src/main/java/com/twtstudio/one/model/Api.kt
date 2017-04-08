@@ -5,6 +5,7 @@ import com.twtstudio.one.Bean.BeanListMonth
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import rx.Observable
 
 /**
  * Created by jcy on 2016/5/14.
@@ -17,7 +18,7 @@ interface Api {
      * @return
      */
     @GET("hp/bymonth/{month}")
-    fun getListBean(@Path("month") month: String): Call<BeanListMonth>
+    fun getListBean(@Path("month") month: String): Observable<BeanListMonth>
 
 
 }

@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -30,9 +31,18 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:palette-v7:25.2.0'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile "io.reactivex:rxjava:1.2.5"
+    compile 'io.reactivex:rxandroid:1.2.1'
+
     compile 'com.github.vipulasri.layouttoimage:library:1.0.0'
+
+    compile 'org.jetbrains.anko:anko-sdk21:0.9.1' // sdk19, sdk21, sdk23 are also available
+//    compile 'org.jetbrains.anko:anko-support-v4:0.9.1' // In case you need support-v4 bindings
+//    compile 'org.jetbrains.anko:anko-appcompat-v7:0.9.1' // For appcompat-v7 bindings
+
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

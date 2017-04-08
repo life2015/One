@@ -123,4 +123,8 @@ class Bean {
             }
         }
     }
+
+//    var desciption : String by lazy{
+//       "gg"
+//    }
 }

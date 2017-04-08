@@ -12,33 +12,44 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
+import rx.subscriptions.CompositeSubscription
 
 /**
  * Created by jcy on 2016/5/14.
  */
 class ApiClient(var infoBeanPresenter: InfoBeanPresenter) {
     val base_url = "http://v3.wufazhuce.com:8000/api/"
-    var retrofit:Retrofit
+    var retrofit: Retrofit
     var One_Api: Api
+    val subscriptionMap = CompositeSubscription()
 
     init {
-        retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(base_url).build()
+        retrofit = Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(base_url).build()
         One_Api = retrofit.create(Api::class.java)
     }
 
     fun get() {
-        val call = One_Api.getListBean("2017-04")
-        call.enqueue(object : Callback<BeanListMonth> {
-            override fun onResponse(call: Call<BeanListMonth>, response: Response<BeanListMonth>) {
-                infoBeanPresenter.postList(response.body().data)
-                println(response.body().data)
-                Log.d("jcy", "retrofit----------------->ok")
-            }
 
-            override fun onFailure(call: Call<BeanListMonth>, t: Throwable) {
-                Log.d("jcyerror", "retrofit失败")
-            }
-        })
+        val subscription =
+                Observable.merge(One_Api.getListBean("2017-04"), One_Api.getListBean("2017-03"), One_Api.getListBean("2017-02"))
+                        .subscribeOn(Schedulers.io())
+                        .map { it.data }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ it -> infoBeanPresenter.postList(it) }, Throwable::printStackTrace)
+        subscriptionMap.add(subscription)
+    }
+
+    fun unbind(){
+        if (!subscriptionMap.isUnsubscribed){
+            subscriptionMap.unsubscribe()
+        }
     }
 }
