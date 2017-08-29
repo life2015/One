@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
 import android.support.v7.widget.CardView
@@ -35,7 +36,7 @@ import org.jetbrains.anko.find
 class VActivity : AppCompatActivity() {
 
     val layoutManger = VirtualLayoutManager(this)
-    val recyclerview: RecyclerView by lazy {
+    val recyclerview by lazy {
         find<RecyclerView>(R.id.recyclerview).apply {
             layoutManager = this@VActivity.layoutManger
             recycledViewPool = RecyclerView.RecycledViewPool()
@@ -90,7 +91,6 @@ class VActivity : AppCompatActivity() {
         }
 
     }
-
 
     class SubAdapter(val context: Context, val layoutHelper: LayoutHelper, val data: List<BeanListMonth.DataBean>) : DelegateAdapter.Adapter<SubAdapter.InfoViewHolder>() {
 

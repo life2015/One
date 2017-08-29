@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ContentAct" />
+        <activity android:name=".AnkoActivity"/>
     </application>
 
 </manifest>

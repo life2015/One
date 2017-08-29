@@ -25,5 +25,11 @@ class WelcomeActivity : AppCompatActivity() {
             val intent = Intent(this,VActivity::class.java)
             startActivity(intent)
         }
+        val button3 = findViewById(R.id.button3) as Button
+        button3.setOnClickListener {
+            val intent = Intent(this,AnkoActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 }
