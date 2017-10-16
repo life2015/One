@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //setContentView(R.layout.activity_main);
-        val toolbar = findViewById(R.id.toolbar_one) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar_one)
         setSupportActionBar(toolbar)
 
         val manager = fragmentManager

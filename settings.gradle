@@ -1,1 +1,7 @@
 include ':app'
+include 'commons'
+project(':commons').projectDir = new File('/Users/retrox/AndroidStudioProjects/WePeiYang-Android/WePeiYang/commons')
+//include 'auth'
+//project(':auth').projectDir = new File('/Users/retrox/AndroidStudioProjects/WePeiYang-Android/WePeiYang/auth')
+//include 'mvvmKit'
+//project(':mvvmKit').projectDir = new File('/Users/retrox/AndroidStudioProjects/WePeiYang-Android/WePeiYang/mvvmKit')

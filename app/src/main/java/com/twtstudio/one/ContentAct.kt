@@ -37,11 +37,11 @@ class ContentAct : AppCompatActivity() {
         //透明导航栏
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 
-        val toolbar = findViewById(R.id.toolbar_content) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar_content)
         toolbar.title = "Story"
         setSupportActionBar(toolbar)
-        webView = findViewById(R.id.webView_story) as WebView
-        imageview = findViewById(R.id.image_content_one) as ImageView
+        webView = findViewById(R.id.webView_story)
+        imageview = findViewById(R.id.image_content_one)
         val intent = intent
         val bundle = intent.extras
         val s = bundle.getString("index")

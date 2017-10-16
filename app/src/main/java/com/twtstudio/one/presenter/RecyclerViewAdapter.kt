@@ -150,10 +150,10 @@ class RecyclerViewAdapter(private val context: Context) : RecyclerView.Adapter<R
         var authorTextView: TextView
 
         init {
-            cardView = itemView.findViewById(R.id.card_view) as CardView
-            imageView = itemView.findViewById(R.id.image_one) as ImageView
-            infoTextView = itemView.findViewById(R.id.text_one) as TextView
-            authorTextView = itemView.findViewById(R.id.author) as TextView
+            cardView = itemView.findViewById(R.id.card_view)
+            imageView = itemView.findViewById(R.id.image_one)
+            infoTextView = itemView.findViewById(R.id.text_one)
+            authorTextView = itemView.findViewById(R.id.author)
         }
     }
 

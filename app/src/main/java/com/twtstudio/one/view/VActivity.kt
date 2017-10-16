@@ -120,10 +120,10 @@ class VActivity : AppCompatActivity() {
 
         class InfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            var cardView: CardView = itemView.findViewById(R.id.card_view) as CardView
-            var imageView: ImageView = itemView.findViewById(R.id.image_one) as ImageView
-            var infoTextView: TextView = itemView.findViewById(R.id.text_one) as TextView
-            var authorTextView: TextView = itemView.findViewById(R.id.author) as TextView
+            var cardView: CardView = itemView.findViewById(R.id.card_view)
+            var imageView: ImageView = itemView.findViewById(R.id.image_one)
+            var infoTextView: TextView = itemView.findViewById(R.id.text_one)
+            var authorTextView: TextView = itemView.findViewById(R.id.author)
 
         }
 
@@ -150,7 +150,7 @@ class VActivity : AppCompatActivity() {
         }
 
         class SimpleItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val textView = itemView.findViewById(R.id.textView) as TextView
+            val textView = itemView.findViewById<TextView>(R.id.textView)
         }
     }
 
